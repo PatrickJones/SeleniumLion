@@ -41,5 +41,11 @@ namespace SeleniumLion.Tests.Views
 
             System.Diagnostics.Debug.WriteLine($"Page title is: {IEDriver.Title}");
         }
+
+        [ClassCleanup()]
+        public static void TestClassCleanup()
+        {
+            IEDriver.Quit();
+        }
     }
 }

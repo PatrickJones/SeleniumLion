@@ -42,5 +42,11 @@ namespace SeleniumLion.Tests.Views
 
             Console.WriteLine($"Page title is: {FirefoxDriver.Title}");
         }
+
+        [ClassCleanup()]
+        public static void TestClassCleanup()
+        {
+            FirefoxDriver.Quit();
+        }
     }
 }

@@ -38,5 +38,11 @@ namespace SeleniumLion.Tests.Views
 
             System.Diagnostics.Debug.WriteLine($"Page title is: {OperaDriver.Title}");
         }
+
+        [ClassCleanup()]
+        public static void TestClassCleanup()
+        {
+            OperaDriver.Quit();
+        }
     }
 }

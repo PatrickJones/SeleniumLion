@@ -61,5 +61,11 @@ namespace SeleniumLion.Tests.Views
             formSubmit.Submit();
 
         }
+
+        [ClassCleanup()]
+        public static void TestClassCleanup()
+        {
+            ChromeDriver.Quit();
+        }
     }
 }
