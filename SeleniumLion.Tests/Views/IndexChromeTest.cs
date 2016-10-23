@@ -49,6 +49,7 @@ namespace SeleniumLion.Tests.Views
         public static void Initialize(TestContext testContext)
         {
             //driverFireFox = new FirefoxDriver();
+            var driverPath = AppDomain.CurrentDomain.BaseDirectory;
             ChromeDriver = new ChromeDriver(@"C:\SeleniumDrivers\chromedriver_win32");
             //driverIE = new InternetExplorerDriver();
         }
