@@ -7,6 +7,8 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
+using System.IO;
+using System.Reflection;
 
 namespace SeleniumLion.Tests.Views
 {
@@ -16,10 +18,6 @@ namespace SeleniumLion.Tests.Views
     [TestClass]
     public class IndexChromeTest : BaseUnitTest
     {
-        //static IWebDriver driverChrome;
-        //static IWebDriver driverFireFox;
-        //static IWebDriver driverIE;
-
         public IndexChromeTest()
         {
             //
@@ -27,31 +25,12 @@ namespace SeleniumLion.Tests.Views
             //
         }
 
-        //private TestContext testContextInstance;
-
-        ///// <summary>
-        /////Gets or sets the test context which provides
-        /////information about and functionality for the current test run.
-        /////</summary>
-        //public TestContext TestContext
-        //{
-        //    get
-        //    {
-        //        return testContextInstance;
-        //    }
-        //    set
-        //    {
-        //        testContextInstance = value;
-        //    }
-        //}
-
         [ClassInitialize]
         public static void Initialize(TestContext testContext)
         {
-            //driverFireFox = new FirefoxDriver();
-            var driverPath = AppDomain.CurrentDomain.BaseDirectory;
-            ChromeDriver = new ChromeDriver(@"C:\SeleniumDrivers\chromedriver_win32");
-            //driverIE = new InternetExplorerDriver();
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var driverPath = Path.Combine(dir, "Drivers", "chromedriver_win32");
+            ChromeDriver = new ChromeDriver(driverPath);
         }
 
 
@@ -65,7 +44,6 @@ namespace SeleniumLion.Tests.Views
 
             var wait = new WebDriverWait(ChromeDriver, TimeSpan.FromSeconds(10));
             wait.Until(d => d.Title.StartsWith("selenium", StringComparison.OrdinalIgnoreCase));
-            //driverFireFox.FindElement(By.Id("searchText")).SendKeys(Keys.Enter);
 
             System.Diagnostics.Debug.WriteLine($"Page title is: {ChromeDriver.Title}");
         }

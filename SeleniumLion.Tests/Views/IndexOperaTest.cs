@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Opera;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System.Reflection;
+using System.IO;
 
 namespace SeleniumLion.Tests.Views
 {
@@ -18,7 +20,9 @@ namespace SeleniumLion.Tests.Views
         public static void Initialize(TestContext testContext)
         {
             //https://chocolatey.org/packages/selenium-opera-driver
-            OperaDriver = new OperaDriver(@"C:\SeleniumDrivers\OperaDriver");
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var driverPath = Path.Combine(dir, "Drivers", "OperaDriver");
+            OperaDriver = new OperaDriver(driverPath);
         }
 
             [TestMethod]
@@ -31,7 +35,6 @@ namespace SeleniumLion.Tests.Views
 
             var wait = new WebDriverWait(OperaDriver, TimeSpan.FromSeconds(10));
             wait.Until(d => d.Title.StartsWith("selenium", StringComparison.OrdinalIgnoreCase));
-            //driverFireFox.FindElement(By.Id("searchText")).SendKeys(Keys.Enter);
 
             System.Diagnostics.Debug.WriteLine($"Page title is: {OperaDriver.Title}");
         }

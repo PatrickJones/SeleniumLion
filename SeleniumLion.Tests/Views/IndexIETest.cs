@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System.Reflection;
+using System.IO;
 
 namespace SeleniumLion.Tests.Views
 {
@@ -19,7 +21,10 @@ namespace SeleniumLion.Tests.Views
         {
             //http://selenium-release.storage.googleapis.com/index.html?path=2.53/
             // Protected Mode must be consistent across all zones 
-            IEDriver = new InternetExplorerDriver(@"C:\SeleniumDrivers\IEDriverServer_x64_2.53.1");
+
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var driverPath = Path.Combine(dir, "Drivers", "IEDriverServer_x64_2.53.1");
+            IEDriver = new InternetExplorerDriver(driverPath);
         }
 
 
@@ -33,7 +38,6 @@ namespace SeleniumLion.Tests.Views
 
             var wait = new WebDriverWait(IEDriver, TimeSpan.FromSeconds(10));
             wait.Until(d => d.Title.StartsWith("selenium", StringComparison.OrdinalIgnoreCase));
-            //driverFireFox.FindElement(By.Id("searchText")).SendKeys(Keys.Enter);
 
             System.Diagnostics.Debug.WriteLine($"Page title is: {IEDriver.Title}");
         }
